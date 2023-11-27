@@ -89,7 +89,7 @@ export class AuthService {
     };
     await this.usersService.updateVerifyToken(newUser.id, verifyTokenDto);
     await this.updateRefreshToken(newUser.id, tokens.refreshToken);
-    const url = `${WEB_ROOT}/auth/verify-email?accessToken=${tokens.accessToken}`;
+    const url = `${process.env.WEB_ROOT}/auth/verify-email?accessToken=${tokens.accessToken}`;
     return {
       sendverifymailstate: await sendTestMail(newUser, url),
       email: newUser.email,
@@ -169,7 +169,7 @@ export class AuthService {
     };
     console.log(tokens.accessToken)
     await this.usersService.updateVerifyToken(user.id, verifyTokenDto);
-      const url = `${WEB_ROOT}/auth/reset-password?accessToken=${tokens.accessToken}`;
+      const url = `${process.env.WEB_ROOT}/auth/reset-password?accessToken=${tokens.accessToken}`;
       return {
         sendmailState: await forgotPassMail(user, url),
         email: user.email,
