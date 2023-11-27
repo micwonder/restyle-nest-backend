@@ -10,7 +10,7 @@ export const forgotPassMail = (
 
   const msg = {
     to: userInfo.email, // Change to your recipient
-    from: SENDGRID_HOST_MAIL, // Change to your verified sender
+    from: process.env.SENDGRID_HOST_MAIL, // Change to your verified sender
     subject: 'visualee.aiをご利用いただきありがとうございます。',
     text: 'パスワードをリセットするには、下のリンクをクリックしてください',
     html: `<h1>🎉🎉visualee.aiをご利用いただきありがとうございます。🎉🎉</h1>
@@ -21,7 +21,7 @@ export const forgotPassMail = (
     <h4>ご利用についてご不明な点がございましたら下記メールにお問い合わせいただければ幸いです。</h4>
     <a style="text-decoration: none;" href="mailto:support@visualee.ai">~~~~~~~~~~~~~~~~~support@visualee.ai~~~~~~~~~~~~~~~~~</a>`,
   };
-
+  console.log(msg)
   return sgMail
     .send(msg)
     .then((response) => {

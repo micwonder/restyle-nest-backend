@@ -33,7 +33,7 @@ export class MailService {
     await this.mailerService
       .sendMail({
         to: email,
-        from: SENDGRID_HOST_MAIL,
+        from: process.env.SENDGRID_HOST_MAIL,
         subject:
         'visualee.aiをご利用いただきありがとうございます。メールを確認してください。',
         template: './verifyMail',
@@ -65,7 +65,7 @@ export class MailService {
     await this.mailerService
       .sendMail({
         to: email,
-        from: SENDGRID_HOST_MAIL,
+        from: process.env.SENDGRID_HOST_MAIL,
         subject:
         'visualee.aiをご利用いただきありがとうございます。 下のリンクをクリックしてパスワードをリセットしてください。',
         template: './forgotpasswordMail',
@@ -92,7 +92,7 @@ export class MailService {
     await this.mailerService
       .sendMail({
         to: user.email,
-        from: SENDGRID_HOST_MAIL,
+        from: process.env.SENDGRID_HOST_MAIL,
         subject: 'Welcome to Nice App! Confirm your Email',
         template: './forgotpasswordMail',
         context: {

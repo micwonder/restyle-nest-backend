@@ -10,7 +10,7 @@ export const sendTestMail = (
 
   const msg = {
     to: userInfo.email, // Change to your recipient
-    from: SENDGRID_HOST_MAIL, // Change to your verified sender
+    from: process.env.SENDGRID_HOST_MAIL, // Change to your verified sender
     subject: 'visualee.aiをご利用いただきありがとうございます。',
     text: '下のリンクをクリックしてサービスにログインしてください。',
     html: `<h1>🎉🎉Visualee.aiをご利用いただきありがとうございます。🎉🎉</h1>
