@@ -99,7 +99,8 @@ export class AuthService {
   async signIn(signinDto: SigninDto) {
     // Check if user exists
     const user = await this.usersService.findByUserEmail(signinDto.email);
-    console.log('------------------------>', user);
+    console.log('------------------------>',     this.configService.get<string>('JWT_ACCESS_SECRET'));
+
     await this.usersService.userLogin(signinDto.email);
     if (!user) {
       console.log('==========================XXXXX');

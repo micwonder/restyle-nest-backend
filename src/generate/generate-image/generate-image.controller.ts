@@ -297,7 +297,8 @@ export class GenerateImageController {
 
     console.log('Good Listening', imageTaggingDto.origin);
     const bodyInfo = JSON.stringify({
-      origin: imageTaggingDto.origin,
+      type : 'url',
+      image : imageTaggingDto.origin,
     });
     const options = {
       headers: {
