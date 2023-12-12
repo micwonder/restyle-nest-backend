@@ -37,6 +37,7 @@ import { s3Service_download } from 'src/util/s3/s3';
 import { ImageTaggingDto } from './dto/imageTagging.dto';
 import { VideoTaggingDto } from './dto/videoTagging.dto';
 import { AddTaggingDto } from './dto/addTagging.dto';
+import { SaveTaggingDto } from './dto/saveTagging.dto';
 
 @Controller('generate-image')
 @ApiTags('generate-image')
@@ -317,10 +318,10 @@ export class GenerateImageController {
         }),
       ),
     );
-    
+    const currentTime = new Date();
     const genInfo = await this.generateImageService.addTagging({
       origin: imageTaggingDto.origin,
-      tagging: generatedData,
+      created_at: currentTime.toISOString(),
     });
 
     // return {
@@ -665,14 +666,21 @@ export class GenerateImageController {
     return await this.generateImageService.findMyProjectAll(myProjectDto);
   }
 
-  @Post('getTagging')
-  // @UseGuards(AccessTokenGuard)
-  // @ApiBearerAuth()
+  @Get('getTagging')
   @ApiCreatedResponse({ type: GenerateImageEntity })
-  async findTagging(@Body() imageTaggingDto: ImageTaggingDto) {
-    return await this.generateImageService.findTagging(imageTaggingDto);
+  async findTagging() {
+    return await this.generateImageService.findTagging();
   }
 
+  @Post('addTaggingData')
+  @ApiCreatedResponse({ type: GenerateImageEntity })
+  async createTaggingData(@Body() saveTaggingDto: SaveTaggingDto) {
+    const currentTime = new Date();
+    return await this.generateImageService.addTagging({
+      origin: saveTaggingDto.origin,
+      created_at: currentTime.toISOString(),
+    });
+  }
 
   @Post('get-restyle-all')
   @UseGuards(AccessTokenGuard)

@@ -3,15 +3,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {IsNotEmpty, IsString } from 'class-validator';
 
-export class AddTaggingDto {
+export class SaveTaggingDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
   origin: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
-  created_at: string;
 
 }

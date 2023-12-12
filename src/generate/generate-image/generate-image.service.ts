@@ -85,10 +85,8 @@ export class GenerateImageService {
     });
   }
 
-  async findTagging(imageTaggingDto: ImageTaggingDto) {
-    return await this.prisma.tagData.findFirst({
-      where: { origin: imageTaggingDto.origin },
-    });
+  async findTagging() {
+    return await this.prisma.tagData.findMany();
   }
 
   async findRestyleProjectAll(myProjectDto: MyProjectDto) {

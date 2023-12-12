@@ -142,7 +142,7 @@ model GenerateImage {
 model TagData {
   id        Int      @id @default(autoincrement())
   origin    String
-  tagging   String
+  created_at   String
 }
 
 model Video {
