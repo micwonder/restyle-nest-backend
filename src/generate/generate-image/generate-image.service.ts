@@ -129,6 +129,9 @@ export class GenerateImageService {
     return this.prisma.generateImage.delete({ where: { id } });
   }
 
+  removeImage(id: number) {
+    return this.prisma.tagData.delete({where: {id}});
+  }
   async includegenNumber(id: number) {
     const newuser = await this.prisma.user.findUnique({ where: { id } });
     const oldNumber = newuser.genNumber;

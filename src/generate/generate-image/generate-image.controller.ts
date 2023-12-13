@@ -748,4 +748,11 @@ export class GenerateImageController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.generateImageService.remove(id);
   }
+
+  @Delete('deleteTagging/:id')
+  @ApiOkResponse({ type: GenerateImageEntity })
+  removeImage(@Param('id',ParseIntPipe) id: number) {
+    return this.generateImageService.removeImage(id);
+  }
+
 }
