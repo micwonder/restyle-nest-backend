@@ -10,6 +10,13 @@ import {
   UseGuards,
   StreamableFile,
 } from '@nestjs/common';
+
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+});
+
 import { GenerateImageService } from './generate-image.service';
 import { GenerateRestyleDto } from './dto/generate-restyle.dto';
 import { GenerateByPromptDto } from './dto/generate-byPrompt.dto';
@@ -38,6 +45,7 @@ import { ImageTaggingDto } from './dto/imageTagging.dto';
 import { VideoTaggingDto } from './dto/videoTagging.dto';
 import { AddTaggingDto } from './dto/addTagging.dto';
 import { SaveTaggingDto } from './dto/saveTagging.dto';
+import { ChattingDto } from './dto/chatting.dto';
 
 @Controller('generate-image')
 @ApiTags('generate-image')
@@ -681,6 +689,30 @@ export class GenerateImageController {
       created_at: currentTime.toISOString(),
     });
   }
+
+  @Post('chatting')
+  @ApiCreatedResponse({ type: GenerateImageEntity })
+  async chatResponse(@Body() chattingDto: ChattingDto) {
+
+    const query = chattingDto.query
+    
+    console.log('##################', query)
+    let messages = [{"role": "system", "content": "You are brilliant assistant"}];
+    
+    if (query) {
+      messages.push(
+          {"role": "user", "content": query}
+      );
+    }
+    console.log(messages, typeof(messages))
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a helpful assistant." },  {"role": "user", "content": query}],
+      model: "gpt-4",
+    });
+    const reply = completion.choices[0].message.content
+    return reply
+  }
+
 
   @Post('get-restyle-all')
   @UseGuards(AccessTokenGuard)
