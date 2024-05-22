@@ -697,7 +697,7 @@ export class GenerateImageController {
     const query = chattingDto.query
     
     console.log('##################', query)
-    let messages = [{"role": "system", "content": "You are brilliant assistant"}];
+    let messages = [{"role": "system", "content": "You are brilliant AI interior designer."}];
     
     if (query) {
       messages.push(
